@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THRASH STRONG | Streetwear & Cultura Urbana</title>
+    
+    <!-- Google Fonts: Oswald (Títulos impactantes) & Inter (Textos limpios) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS (Framework) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#ffffff', // El blanco es el color de acento principal
+                        dark: '#050505',
+                        darker: '#000000',
+                        light: '#0f0f0f',
+                        grayish: '#222222'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Estilos Personalizados y Animaciones -->
+    <style>
+        /* Scrollbar personalizado oscuro */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ffffff; }
+        
+        /* Utilidades para ocultar scroll */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Animaciones Fade Up al hacer scroll */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hover Zoom para imágenes */
+        .img-zoom { transition: transform 0.8s ease; }
+        .group:hover .img-zoom { transform: scale(1.05); }
+
+        /* Estilos de Header Blur */
+        .glass-header {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Hero Text Stroke */
+        .text-stroke {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Efecto de luz blanca de fondo global */
+        .glow-bg {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body { overflow-x: hidden; }
+    </style>
+</head>
+<body class="bg-darker text-gray-300 font-sans selection:bg-white selection:text-black relative">
+
+    <!-- Efectos de luces blancas en el fondo (Solo UI, sin afectar fotos) -->
+    <div class="glow-bg w-[600px] h-[600px] top-[-200px] left-[-200px]"></div>
+    <div class="glow-bg w-[500px] h-[500px] bottom-[10%] right-[-150px]"></div>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="fixed w-full top-0 z-40 glass-header border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex justify-between items-center h-20">
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="text-white md:hidden text-2xl hover:text-gray-300 transition hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <!-- Logo -->
+                <a href="#" class="flex-shrink-0 flex items-center gap-2 group">
+                    <h1 class="font-display font-bold text-3xl tracking-tighter text-white uppercase group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] transition-all">
+                        Thrash<span class="text-gray-400 group-hover:text-white transition-colors">Strong</span>
+                    </h1>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-white font-display uppercase font-medium text-sm tracking-widest hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all">Inicio</a>
+                    <a href="#shop" class="text-gray-400 font-display uppercase font-medium text-sm tracking-widest hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all">Tienda</a>
+                    <a href="#streetwear" class="text-gray-400 font-display uppercase text-sm tracking-widest hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all">Streetwear</a>
+                    <a href="#basketball" class="text-gray-400 font-display uppercase text-sm tracking-widest hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all">Básquetbol</a>
+                    <a href="#ofertas" class="text-white font-display uppercase font-bold text-sm tracking-widest hover:drop-shadow-[0_0_10px_rgba(255,255,255,1)] transition-all">Ofertas</a>
+                </nav>
+
+                <!-- Icons -->
+                <div class="flex items-center space-x-5 text-white">
+                    <button id="search-btn" class="hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all text-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button id="cart-btn" class="hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all text-lg relative">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="cart-badge" class="absolute -top-2 -right-2 bg-white text-black text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center opacity-0 transition-opacity shadow-[0_0_10px_rgba(255,255,255,0.8)]">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú Mobile Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-darker z-50 transform -translate-x-full transition-transform duration-300 flex flex-col pt-20 px-6 border-r border-white/10">
+        <button id="close-mobile-btn" class="absolute top-6 right-6 text-white text-3xl hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"><i class="fa-solid fa-xmark"></i></button>
+        <nav class="flex flex-col space-y-6 mt-10">
+            <a href="#" class="mobile-link text-white font-display uppercase font-bold text-3xl tracking-wide hover:pl-4 transition-all">Inicio</a>
+            <a href="#shop" class="mobile-link text-gray-400 font-display uppercase font-bold text-3xl tracking-wide hover:text-white hover:pl-4 transition-all">Tienda / Shop</a>
+            <a href="#streetwear" class="mobile-link text-gray-400 font-display uppercase font-bold text-3xl tracking-wide hover:text-white hover:pl-4 transition-all">Streetwear</a>
+            <a href="#basketball" class="mobile-link text-gray-400 font-display uppercase font-bold text-3xl tracking-wide hover:text-white hover:pl-4 transition-all">Básquetbol</a>
+            <a href="#ofertas" class="mobile-link text-white font-display uppercase font-bold text-3xl tracking-wide hover:pl-4 transition-all drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">Ofertas</a>
+            <a href="#contacto" class="mobile-link text-gray-600 font-display uppercase font-bold text-2xl tracking-wide mt-8 hover:text-white transition-all">Contacto</a>
+        </nav>
+    </div>
+
+    <!-- Buscador Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-darker/95 z-50 backdrop-blur-xl hidden flex-col items-center justify-center px-4">
+        <button id="close-search-btn" class="absolute top-6 right-6 text-white text-3xl hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"><i class="fa-solid fa-xmark"></i></button>
+        <div class="w-full max-w-3xl relative fade-up visible">
+            <input type="text" placeholder="BUSCAR PRODUCTOS..." class="w-full bg-transparent border-b-2 border-white/30 text-white text-3xl md:text-5xl font-display uppercase py-4 focus:outline-none focus:border-white focus:shadow-[0_4px_15px_-3px_rgba(255,255,255,0.2)] placeholder-white/20 transition-all">
+            <i class="fa-solid fa-arrow-right absolute right-0 top-1/2 transform -translate-y-1/2 text-3xl text-white/50 hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] cursor-pointer transition"></i>
+        </div>
+    </div>
+
+    <!-- ==================== CARRITO DE COMPRAS (SIDEBAR) ==================== -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/80 z-50 hidden backdrop-blur-sm transition-opacity"></div>
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[450px] bg-dark z-50 transform translate-x-full transition-transform duration-300 shadow-[-10px_0_30px_rgba(0,0,0,0.8)] border-l border-white/10 flex flex-col">
+        <div class="flex items-center justify-between p-6 border-b border-white/10 bg-darker">
+            <h2 class="font-display font-bold text-2xl uppercase tracking-wide text-white">Tu Carrito</h2>
+            <button id="close-cart-btn" class="text-gray-400 hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6 flex flex-col gap-4 no-scrollbar">
+            <div class="text-center text-gray-500 mt-20 font-sans">
+                <i class="fa-solid fa-cart-arrow-down text-4xl mb-4 opacity-50"></i>
+                <p>Tu carrito está vacío.</p>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-white/10 bg-darker">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-sans font-medium text-gray-400 uppercase text-sm">Subtotal</span>
+                <span id="cart-subtotal" class="font-display font-bold text-2xl text-white">$ 0</span>
+            </div>
+            <button class="w-full bg-white text-black font-display uppercase font-bold text-lg py-4 hover:bg-dark hover:text-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] border border-transparent hover:border-white transition-all duration-300 flex items-center justify-center gap-2 group">
+                Finalizar Compra <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </button>
+            <button id="continue-shopping" class="w-full mt-4 text-center text-sm font-sans font-medium text-gray-500 hover:text-white underline transition">Continuar comprando</button>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL DE PRODUCTO (VISTA RÁPIDA) ==================== -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-md" id="close-modal-overlay"></div>
+        <div class="relative bg-dark w-full max-w-5xl max-h-[90vh] rounded-xl overflow-hidden flex flex-col md:flex-row shadow-[0_0_40px_rgba(255,255,255,0.05)] border border-white/10 transform scale-95 opacity-0 transition-all duration-300" id="modal-content">
+            
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-white hover:text-black hover:bg-white z-10 text-xl bg-dark/80 border border-white/20 w-8 h-8 flex items-center justify-center rounded-full transition-colors"><i class="fa-solid fa-xmark"></i></button>
+            
+            <!-- Imagen Modal a Color -->
+            <div class="w-full md:w-1/2 bg-[#0a0a0a] h-64 md:h-auto relative">
+                <img id="modal-img" src="" alt="Product" class="w-full h-full object-cover">
+                <span id="modal-badge" class="absolute top-4 left-4 bg-white text-black text-xs font-bold px-3 py-1 rounded hidden uppercase tracking-wider shadow-[0_0_10px_rgba(255,255,255,0.3)]"></span>
+            </div>
+            
+            <!-- Detalles Modal -->
+            <div class="w-full md:w-1/2 p-6 md:p-10 flex flex-col overflow-y-auto no-scrollbar bg-gradient-to-b from-dark to-darker">
+                <p id="modal-category" class="text-gray-400 font-display uppercase tracking-widest text-sm mb-2 drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]"></p>
+                <h2 id="modal-title" class="font-display font-bold text-3xl md:text-4xl text-white leading-tight uppercase mb-4 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]"></h2>
+                
+                <div class="flex items-end gap-3 mb-6 pb-6 border-b border-white/10">
+                    <span id="modal-price" class="font-display font-bold text-3xl text-white"></span>
+                    <span id="modal-old-price" class="font-display text-xl text-gray-500 line-through mb-1"></span>
+                </div>
+
+                <p id="modal-desc" class="font-sans text-gray-400 text-sm mb-8 leading-relaxed"></p>
+
+                <!-- Selección de Talle -->
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-sans font-bold text-sm uppercase text-gray-300">Talle</span>
+                        <a href="#" class="text-xs text-gray-500 hover:text-white underline transition-colors">Guía de talles</a>
+                    </div>
+                    <div id="modal-sizes" class="flex gap-2">
+                        <!-- Talles inyectados por JS -->
+                    </div>
+                </div>
+
+                <!-- Selección de Color -->
+                <div class="mb-8">
+                    <span class="font-sans font-bold text-sm uppercase text-gray-300 block mb-3">Color</span>
+                    <div id="modal-colors" class="flex gap-3">
+                        <!-- Colores inyectados por JS -->
+                    </div>
+                </div>
+
+                <!-- Cantidad y Botón -->
+                <div class="mt-auto flex flex-col sm:flex-row gap-4">
+                    <div class="flex items-center border border-white/20 rounded bg-black">
+                        <button id="modal-qty-minus" class="px-4 py-3 text-gray-400 hover:text-white hover:bg-white/10 transition"><i class="fa-solid fa-minus"></i></button>
+                        <span id="modal-qty" class="w-10 text-center font-bold font-sans text-white">1</span>
+                        <button id="modal-qty-plus" class="px-4 py-3 text-gray-400 hover:text-white hover:bg-white/10 transition"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <button id="modal-add-btn" class="flex-1 bg-white text-black font-display uppercase font-bold text-lg py-3 border border-transparent hover:bg-transparent hover:text-white hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300 rounded">
+                        Agregar al Carrito
+                    </button>
+                </div>
+                
+                <p id="modal-stock" class="text-xs text-gray-400 mt-4 text-center sm:text-left font-medium"><i class="fa-solid fa-check-circle text-white mr-1 shadow-[0_0_5px_rgba(255,255,255,0.5)] rounded-full"></i> Stock disponible</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="relative z-10">
+        <!-- HERO SECTION -->
+        <section class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+            <!-- Background Image a Color -->
+            <div class="absolute inset-0 bg-darker">
+                <img src="https://images.unsplash.com/photo-1577212017184-80cc0da11082?auto=format&fit=crop&q=80&w=2000" alt="Thrash Strong Hero" class="w-full h-full object-cover object-center opacity-70">
+                <!-- Overlay gradiente muy oscuro para que el texto resalte pero la foto se vea bien -->
+                <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-[#000000]"></div>
+            </div>
+            
+            <div class="relative z-10 text-center px-4 w-full max-w-5xl fade-up">
+                <h3 class="text-white font-display uppercase tracking-[0.3em] font-medium text-sm md:text-lg mb-4 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">Cultura Urbana / Streetwear</h3>
+                <h1 class="font-display font-bold text-6xl md:text-8xl lg:text-9xl text-white uppercase leading-[0.9] tracking-tighter mb-6 drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    Your Style.<br>
+                    <span class="text-stroke">Your Game.</span>
+                </h1>
+                <p class="font-sans text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
+                    Diseñado para las calles. Inspirado en la cultura del básquetbol. 
+                    Prendas modernas, oversize y de calidad premium.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#shop" class="w-full sm:w-auto bg-white text-black border border-white font-display uppercase font-bold tracking-wider py-4 px-10 hover:bg-black/50 hover:text-white hover:backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] transition-all duration-300 text-lg">
+                        Ver Colección
+                    </a>
+                    <a href="#basketball" class="w-full sm:w-auto border-2 border-white/50 text-white font-display uppercase font-bold tracking-wider py-3.5 px-10 hover:bg-white hover:text-black hover:border-white transition-all duration-300 text-lg backdrop-blur-sm">
+                        Comprar Ahora
+                    </a>
+                </div>
+            </div>
+
+            <!-- Marca de agua de placeholder -->
+            <div class="absolute bottom-4 right-4 bg-black/80 backdrop-blur text-white/40 text-[10px] px-2 py-1 rounded font-mono z-10 border border-white/10">IMAGEN DE REFERENCIA - REEMPLAZAR</div>
+        </section>
+
+        <!-- MARQUEE (Cinta de texto) -->
+        <div class="bg-white py-3 overflow-hidden whitespace-nowrap border-y border-white relative z-20">
+            <div class="inline-block animate-[marquee_15s_linear_infinite] font-display font-bold text-black text-xl uppercase tracking-widest">
+                <span class="mx-4">•</span> THRASH STRONG <span class="mx-4">•</span> STREETWEAR <span class="mx-4">•</span> BÁSQUETBOL <span class="mx-4">•</span> CULTURA URBANA <span class="mx-4">•</span> EXCLUSIVIDAD <span class="mx-4">•</span> OVERSIZE <span class="mx-4">•</span> THRASH STRONG <span class="mx-4">•</span> STREETWEAR <span class="mx-4">•</span> BÁSQUETBOL <span class="mx-4">•</span> CULTURA URBANA
+            </div>
+            <style>
+                @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+            </style>
+        </div>
+
+        <!-- SECCIÓN: CATEGORÍAS PRINCIPALES -->
+        <section id="categorias" class="max-w-[1400px] mx-auto px-4 py-16 md:py-24 fade-up">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Categoría: Streetwear -->
+                <a href="#shop" class="group relative h-[400px] md:h-[600px] overflow-hidden rounded-sm flex items-center justify-center bg-black border border-white/10 shadow-lg hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all">
+                    <!-- Foto a color original -->
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800" alt="Streetwear" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="relative z-10 text-center">
+                        <h2 class="font-display text-5xl md:text-7xl font-bold text-white uppercase tracking-tighter mb-2 transform group-hover:-translate-y-2 transition-transform drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Streetwear</h2>
+                        <p class="font-sans text-gray-200 uppercase tracking-widest text-sm opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]">Explorar Colección</p>
+                    </div>
+                </a>
+                
+                <!-- Categoría: Básquetbol -->
+                <a href="#basketball" class="group relative h-[400px] md:h-[600px] overflow-hidden rounded-sm flex items-center justify-center bg-black border border-white/10 shadow-lg hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all">
+                    <!-- Foto a color original -->
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80&w=800" alt="Básquetbol" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="relative z-10 text-center">
+                        <h2 class="font-display text-5xl md:text-7xl font-bold text-white uppercase tracking-tighter mb-2 transform group-hover:-translate-y-2 transition-transform drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Básquetbol</h2>
+                        <p class="font-sans text-white uppercase tracking-widest font-bold text-sm opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">Calzado y Equipamiento</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: NUEVOS LANZAMIENTOS (PRODUCTOS) -->
+        <section id="shop" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 fade-up">
+                <div>
+                    <h4 class="text-white font-sans uppercase font-bold text-sm tracking-widest mb-2 drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">The Drop</h4>
+                    <h2 class="font-display font-bold text-4xl md:text-5xl text-white uppercase tracking-tight">Nuevos Lanzamientos</h2>
+                </div>
+                <a href="#" class="hidden md:inline-block border-b border-white/50 text-gray-400 font-sans uppercase font-bold text-sm pb-1 hover:text-white hover:border-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all">Ver todo el catálogo</a>
+            </div>
+
+            <!-- Grid de Productos (Inyectado por JS) -->
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                <!-- Se llena mediante JavaScript -->
+            </div>
+            
+            <div class="mt-10 text-center md:hidden">
+                <a href="#" class="inline-block border border-white/50 text-white font-sans uppercase font-bold text-sm py-3 px-8 hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] transition-all w-full">Ver todo el catálogo</a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: BASKETBALL DEDICADA -->
+        <section id="basketball" class="bg-darker text-white py-24 relative overflow-hidden mt-16 fade-up border-y border-white/10 shadow-[inset_0_0_100px_rgba(0,0,0,1)]">
+            <!-- Textura de fondo -->
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.05)_0%,rgba(0,0,0,1)_70%)] pointer-events-none"></div>
+            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <!-- Text/Graphic side -->
+                    <div class="lg:w-1/3 text-center lg:text-left">
+                        <h4 class="text-white font-display uppercase tracking-widest text-lg mb-2 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">Colección Especial</h4>
+                        <h2 class="font-display font-bold text-6xl md:text-7xl uppercase leading-none tracking-tighter mb-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Court<br>Essentials</h2>
+                        <p class="font-sans text-gray-300 mb-8 text-lg font-light">
+                            Rendimiento en la cancha. Estilo en la calle. Botas de básquet, shorts retro y remeras de entrenamiento con la esencia <strong>Thrash Strong</strong>. Ball don't lie.
+                        </p>
+                        <a href="#" class="inline-block bg-white text-black font-display uppercase font-bold tracking-wider py-4 px-10 hover:bg-transparent hover:text-white hover:border-white border border-transparent transition-all text-lg shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.8)]">
+                            Game Ready
+                        </a>
+                    </div>
+
+                    <!-- Featured BBall Products -->
+                    <div class="lg:w-2/3 w-full relative">
+                        <div class="absolute inset-0 bg-white/5 blur-3xl rounded-full z-0 pointer-events-none"></div>
+                        <div class="grid grid-cols-2 gap-4 md:gap-6 relative z-10" id="bball-grid">
+                            <!-- Productos de Básquet Inyectados por JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: LOOKBOOK / CAMPAÑA -->
+        <section class="max-w-[1400px] mx-auto px-4 py-24 fade-up">
+            <div class="text-center mb-16 relative">
+                <h4 class="text-white font-sans uppercase font-bold text-sm tracking-widest mb-2 drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Editorial</h4>
+                <h2 class="font-display font-bold text-4xl md:text-5xl text-white uppercase tracking-tight">Campaña Urbana</h2>
+                <p class="font-sans text-gray-400 mt-4 max-w-xl mx-auto">Nuestras prendas en acción. Inspírate y crea tu propio estilo.</p>
+            </div>
+
+            <!-- Grid asimétrico tipo Masonry/Editorial (Fotos a Color) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[250px] md:auto-rows-[300px]">
+                
+                <div class="col-span-2 row-span-2 relative group overflow-hidden bg-light border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=1000" alt="Look 1" class="absolute inset-0 w-full h-full object-cover img-zoom">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                        <a href="#shop" class="bg-white text-black font-display uppercase font-bold py-3 px-8 text-sm hover:bg-black hover:text-white border border-transparent hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] transition-all">Comprar el Look</a>
+                    </div>
+                </div>
+                
+                <div class="col-span-1 row-span-1 relative group overflow-hidden bg-light border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1523398002811-999aa8e9f5b9?auto=format&fit=crop&q=80&w=600" alt="Look 2" class="absolute inset-0 w-full h-full object-cover img-zoom">
+                </div>
+                
+                <div class="col-span-1 row-span-2 relative group overflow-hidden bg-light border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=600" alt="Look 3" class="absolute inset-0 w-full h-full object-cover img-zoom">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                        <a href="#shop" class="bg-white text-black font-display uppercase font-bold py-3 px-8 text-sm hover:bg-black hover:text-white border border-transparent hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] transition-all">Comprar el Look</a>
+                    </div>
+                </div>
+                
+                <div class="col-span-1 row-span-1 relative group overflow-hidden bg-light border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1588117305388-c2631a279f82?auto=format&fit=crop&q=80&w=600" alt="Look 4" class="absolute inset-0 w-full h-full object-cover img-zoom">
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-darker text-gray-300 pt-20 pb-10 border-t border-white/20 fade-up relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(255,255,255,0.03)_0%,transparent_50%)] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Marca -->
+                <div class="col-span-1 md:col-span-1">
+                    <h2 class="font-display font-bold text-3xl tracking-tighter uppercase mb-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+                        Thrash<span class="text-gray-500">Strong</span>
+                    </h2>
+                    <p class="font-sans text-gray-400 text-sm mb-6 leading-relaxed">
+                        Cultura urbana, streetwear de calidad premium y la auténtica esencia del básquetbol. Built for the streets.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/thrash_strong_oficial/" target="_blank" class="w-10 h-10 rounded-full bg-light border border-white/10 flex items-center justify-center hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] transition-all text-lg">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-light border border-white/10 flex items-center justify-center hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] transition-all text-lg">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-display font-bold uppercase tracking-widest text-lg mb-6 text-white">Tienda</h4>
+                    <ul class="space-y-3 font-sans text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Ver Todo</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Streetwear</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Básquetbol</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Calzado</a></li>
+                        <li><a href="#" class="text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Ofertas Sale</a></li>
+                    </ul>
+                </div>
+
+                <!-- Soporte -->
+                <div>
+                    <h4 class="font-display font-bold uppercase tracking-widest text-lg mb-6 text-white">Soporte</h4>
+                    <ul class="space-y-3 font-sans text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Contacto</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Preguntas Frecuentes</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Envíos y Devoluciones</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Guía de Talles</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-display font-bold uppercase tracking-widest text-lg mb-6 text-white">Únete al club</h4>
+                    <p class="font-sans text-gray-400 text-sm mb-4">Recibe acceso anticipado a drops exclusivos y ofertas.</p>
+                    <form class="flex flex-col gap-3" onsubmit="event.preventDefault()">
+                        <input type="email" placeholder="Tu correo electrónico" class="bg-black/50 border border-white/20 px-4 py-3 font-sans text-sm focus:outline-none focus:border-white focus:shadow-[0_0_10px_rgba(255,255,255,0.2)] text-white w-full transition-all">
+                        <button type="submit" class="bg-white text-black font-display uppercase font-bold py-3 hover:bg-black hover:text-white border border-transparent hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] transition-all w-full">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-sans text-xs text-gray-500">&copy; 2026 Thrash Strong Oficial. Todos los derechos reservados.</p>
+                <div class="flex items-center gap-4 text-gray-500 text-2xl">
+                    <i class="fa-brands fa-cc-visa hover:text-white hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.5)] transition cursor-pointer"></i>
+                    <i class="fa-brands fa-cc-mastercard hover:text-white hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.5)] transition cursor-pointer"></i>
+                    <i class="fa-brands fa-cc-paypal hover:text-white hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.5)] transition cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // --- DATOS DE PRODUCTOS ---
+        const products = [
+            {
+                id: 1,
+                name: "Remera Oversize 'Built For Streets'",
+                price: 1890,
+                oldPrice: null,
+                discount: null,
+                image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=600",
+                category: "Streetwear",
+                sizes: ["S", "M", "L", "XL"],
+                colors: ["#050505", "#ffffff"],
+                isNew: true,
+                desc: "Remera de corte boxy oversize confeccionada en algodón de alto gramaje premium. Cuello cerrado y caída perfecta para un look urbano oscuro.",
+                isBball: false
+            },
+            {
+                id: 2,
+                name: "Buzo Heavyweight 'Thrash Logo'",
+                price: 3490,
+                oldPrice: 4200,
+                discount: "-15%",
+                image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=600",
+                category: "Streetwear",
+                sizes: ["M", "L", "XL", "XXL"],
+                colors: ["#222222", "#050505"],
+                isNew: false,
+                desc: "Buzo canguro con capucha pesada. Interior frzado super suave. Logo minimalista estampado en alta densidad.",
+                isBball: false
+            },
+            {
+                id: 3,
+                name: "Pantalón Cargo Tactical",
+                price: 3890,
+                oldPrice: null,
+                discount: null,
+                image: "https://images.unsplash.com/photo-1628045952136-22a00f2cb24e?auto=format&fit=crop&q=80&w=600",
+                category: "Streetwear",
+                sizes: ["30", "32", "34", "36"],
+                colors: ["#050505"],
+                isNew: false,
+                desc: "Pantalón estilo cargo con ajuste regulable en tobillos. Multiples bolsillos utilitarios y tela resistente antidesgarro.",
+                isBball: false
+            },
+            {
+                id: 4,
+                name: "Campera Puffer 'Urban Survival'",
+                price: 5990,
+                oldPrice: null,
+                discount: null,
+                image: "https://images.unsplash.com/photo-1559551409-dadc959f76b8?auto=format&fit=crop&q=80&w=600",
+                category: "Streetwear",
+                sizes: ["M", "L", "XL"],
+                colors: ["#050505", "#ffffff"],
+                isNew: true,
+                desc: "Campera inflable de alto volumen. Aislación térmica premium, repelente al agua. El abrigo definitivo de la ciudad.",
+                isBball: false
+            },
+            {
+                id: 5,
+                name: "Botas Básquet 'Court Vision Elite'",
+                price: 6590,
+                oldPrice: 7500,
+                discount: "-12%",
+                image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=600",
+                category: "Básquetbol",
+                sizes: ["40", "41", "42", "43", "44"],
+                colors: ["#ffffff", "#050505", "#ff0000"],
+                isNew: true,
+                desc: "Zapatillas de básquet de alto rendimiento. Amortiguación reactiva y diseño impecable.",
+                isBball: true
+            },
+            {
+                id: 6,
+                name: "Short Retro 'Ball Don't Lie'",
+                price: 1590,
+                oldPrice: null,
+                discount: null,
+                image: "https://images.unsplash.com/photo-1515555230216-82228b4e181f?auto=format&fit=crop&q=80&w=600",
+                category: "Básquetbol",
+                sizes: ["S", "M", "L", "XL"],
+                colors: ["#050505", "#ffffff"],
+                isNew: false,
+                desc: "Short de malla transpirable de doble capa con corte retro. Ideal para entrenar o la calle, estética clásica.",
+                isBball: true
+            }
+        ];
+
+        let cart = [];
+        let modalState = { product: null, size: null, color: null, qty: 1 };
+
+        const formatPrice = (price) => `$ ${price.toLocaleString('es-UY')}`;
+
+        // Generador de Tarjeta de Producto (Fotos a color)
+        function generateProductCard(p) {
+            return `
+            <div class="group relative flex flex-col bg-light overflow-hidden shadow-md hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-300 fade-up h-full border border-white/5 rounded-sm">
+                <!-- Imagen a Color -->
+                <div class="relative aspect-[4/5] bg-black overflow-hidden cursor-pointer" onclick="openModal(${p.id})">
+                    <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover img-zoom transition-transform duration-500">
+                    
+                    <!-- Badges -->
+                    <div class="absolute top-3 left-3 flex flex-col gap-1 z-10">
+                        ${p.discount ? `<span class="bg-white text-black font-display text-[11px] font-bold px-2 py-1 uppercase tracking-wider shadow-[0_0_10px_rgba(255,255,255,0.4)]">${p.discount}</span>` : ''}
+                        ${p.isNew ? `<span class="bg-black/80 backdrop-blur border border-white/20 text-white font-display text-[11px] font-bold px-2 py-1 uppercase tracking-wider">Nuevo</span>` : ''}
+                    </div>
+
+                    <!-- Capa Hover Desktop -->
+                    <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hidden md:flex flex-col gap-2 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                        <button onclick="event.stopPropagation(); openModal(${p.id})" class="w-full bg-white text-black font-display uppercase font-bold py-2.5 hover:bg-black hover:text-white border border-transparent hover:border-white transition-all text-sm shadow-[0_0_15px_rgba(255,255,255,0.3)]">Ver Detalle</button>
+                    </div>
+                </div>
+                
+                <!-- Info -->
+                <div class="p-4 flex flex-col flex-grow bg-light relative z-10 border-t border-white/5">
+                    <p class="text-xs text-gray-500 font-sans uppercase mb-1 drop-shadow-[0_0_2px_rgba(255,255,255,0.1)]">${p.category}</p>
+                    <h3 class="font-display font-medium text-white text-lg md:text-xl leading-tight mb-2 uppercase truncate cursor-pointer hover:text-gray-300 hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.5)] transition-all" onclick="openModal(${p.id})">${p.name}</h3>
+                    
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="font-display font-bold text-xl text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]">${formatPrice(p.price)}</span>
+                        ${p.oldPrice ? `<span class="text-gray-500 line-through text-sm font-sans">${formatPrice(p.oldPrice)}</span>` : ''}
+                    </div>
+                    
+                    <!-- Swatches & Talles -->
+                    <div class="mt-auto pt-3 border-t border-white/10 flex justify-between items-center">
+                        <div class="flex gap-1.5">
+                            ${p.colors.map(c => `<div class="w-3.5 h-3.5 rounded-full border border-white/30 shadow-[0_0_5px_rgba(0,0,0,0.5)]" style="background-color: ${c}"></div>`).join('')}
+                        </div>
+                        <div class="text-xs text-gray-500 font-sans font-medium uppercase tracking-wider">
+                            ${p.sizes.join(' - ')}
+                        </div>
+                    </div>
+                    
+                    <!-- Botón Mobile -->
+                    <button onclick="openModal(${p.id})" class="md:hidden mt-4 w-full border border-white/50 text-white font-display uppercase font-bold py-2 hover:bg-white hover:text-black hover:shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all text-sm">Comprar</button>
+                </div>
+            </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainGrid = document.getElementById('product-grid');
+            mainGrid.innerHTML = products.slice(0, 4).map(generateProductCard).join('');
+
+            const bballGrid = document.getElementById('bball-grid');
+            bballGrid.innerHTML = products.filter(p => p.isBball).map(generateProductCard).join('');
+
+            initScrollAnimations();
+        });
+
+        const modal = document.getElementById('product-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+
+            modalState = { product: p, size: p.sizes[0], color: p.colors[0], qty: 1 };
+
+            document.getElementById('modal-img').src = p.image;
+            document.getElementById('modal-category').innerText = p.category;
+            document.getElementById('modal-title').innerText = p.name;
+            document.getElementById('modal-price').innerText = formatPrice(p.price);
+            document.getElementById('modal-old-price').innerText = p.oldPrice ? formatPrice(p.oldPrice) : '';
+            document.getElementById('modal-desc').innerText = p.desc;
+            document.getElementById('modal-qty').innerText = modalState.qty;
+            
+            const badge = document.getElementById('modal-badge');
+            if(p.discount || p.isNew){
+                badge.innerText = p.discount || 'NUEVO';
+                badge.style.display = 'block';
+                badge.className = `absolute top-4 left-4 text-black text-xs font-bold px-3 py-1 rounded uppercase tracking-wider shadow-[0_0_10px_rgba(255,255,255,0.5)] ${p.discount ? 'bg-white' : 'bg-gray-200'}`;
+            } else {
+                badge.style.display = 'none';
+            }
+
+            const sizesContainer = document.getElementById('modal-sizes');
+            sizesContainer.innerHTML = p.sizes.map(s => 
+                `<button onclick="selectSize('${s}')" class="size-btn w-10 h-10 border font-display uppercase font-bold text-sm transition-all ${s === modalState.size ? 'border-white bg-white text-black shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'border-white/20 text-gray-400 hover:border-white hover:text-white'}">${s}</button>`
+            ).join('');
+
+            const colorsContainer = document.getElementById('modal-colors');
+            colorsContainer.innerHTML = p.colors.map(c => 
+                `<button onclick="selectColor('${c}')" class="color-btn w-8 h-8 rounded-full border-2 transition-all shadow-md ${c === modalState.color ? 'border-white scale-110 shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'border-white/20 hover:scale-110 hover:border-white/50'}" style="background-color: ${c}"></button>`
+            ).join('');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+        document.getElementById('close-modal-overlay').addEventListener('click', closeModal);
+
+        window.selectSize = function(s) {
+            modalState.size = s;
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                if(btn.innerText === s) {
+                    btn.className = "size-btn w-10 h-10 border font-display uppercase font-bold text-sm transition-all border-white bg-white text-black shadow-[0_0_10px_rgba(255,255,255,0.5)]";
+                } else {
+                    btn.className = "size-btn w-10 h-10 border font-display uppercase font-bold text-sm transition-all border-white/20 text-gray-400 hover:border-white hover:text-white";
+                }
+            });
+        }
+
+        window.selectColor = function(c) {
+            modalState.color = c;
+            const colorContainer = document.getElementById('modal-colors');
+            Array.from(colorContainer.children).forEach(btn => {
+                if(btn.style.backgroundColor === c || btn.style.backgroundColor === rgb2hex(c)) {
+                    btn.classList.add('border-white', 'scale-110', 'shadow-[0_0_10px_rgba(255,255,255,0.5)]');
+                    btn.classList.remove('border-white/20');
+                } else {
+                    btn.classList.remove('border-white', 'scale-110', 'shadow-[0_0_10px_rgba(255,255,255,0.5)]');
+                    btn.classList.add('border-white/20');
+                }
+            });
+        }
+        
+        function rgb2hex(rgb) {
+            if (rgb.search("rgb") == -1) return rgb;
+            rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+            function hex(x) { return ("0" + parseInt(x).toString(16)).slice(-2); }
+            return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+        }
+
+        document.getElementById('modal-qty-plus').addEventListener('click', () => {
+            if(modalState.qty < 10) {
+                modalState.qty++;
+                document.getElementById('modal-qty').innerText = modalState.qty;
+            }
+        });
+
+        document.getElementById('modal-qty-minus').addEventListener('click', () => {
+            if(modalState.qty > 1) {
+                modalState.qty--;
+                document.getElementById('modal-qty').innerText = modalState.qty;
+            }
+        });
+
+        document.getElementById('modal-add-btn').addEventListener('click', () => {
+            addToCart(modalState.product, modalState.size, modalState.color, modalState.qty);
+            closeModal();
+            setTimeout(toggleCart, 350); 
+        });
+
+        // --- MANEJO DEL CARRITO ---
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartBadge = document.getElementById('cart-badge');
+        
+        function toggleCart() {
+            const isClosed = cartSidebar.classList.contains('translate-x-full');
+            if(isClosed) {
+                cartOverlay.classList.remove('hidden');
+                setTimeout(() => cartSidebar.classList.remove('translate-x-full'), 10);
+            } else {
+                cartSidebar.classList.add('translate-x-full');
+                setTimeout(() => cartOverlay.classList.add('hidden'), 300);
+            }
+        }
+
+        document.getElementById('cart-btn').addEventListener('click', toggleCart);
+        document.getElementById('close-cart-btn').addEventListener('click', toggleCart);
+        cartOverlay.addEventListener('click', toggleCart);
+        document.getElementById('continue-shopping').addEventListener('click', toggleCart);
+
+        function addToCart(product, size, color, qty) {
+            const existing = cart.find(item => item.id === product.id && item.size === size && item.color === color);
+            if(existing) {
+                existing.qty += qty;
+            } else {
+                cart.push({ ...product, size, color, qty });
+            }
+            updateCartUI();
+        }
+
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+        
+        window.updateCartQty = function(index, change) {
+            const item = cart[index];
+            item.qty += change;
+            if(item.qty <= 0) cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-subtotal');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            if(totalItems > 0) {
+                cartBadge.innerText = totalItems;
+                cartBadge.classList.remove('opacity-0');
+            } else {
+                cartBadge.classList.add('opacity-0');
+            }
+
+            if(cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-gray-500 mt-20 font-sans">
+                        <i class="fa-solid fa-cart-arrow-down text-4xl mb-4 opacity-50"></i>
+                        <p>Tu carrito está vacío.</p>
+                        <button onclick="toggleCart()" class="mt-4 border border-white/50 text-white px-6 py-2 uppercase font-display text-sm hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] transition-all">Ir a comprar</button>
+                    </div>`;
+                totalEl.innerText = "$ 0";
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map((item, index) => {
+                total += item.price * item.qty;
+                return `
+                <div class="flex gap-4 bg-light p-3 border border-white/5 shadow-md rounded-sm hover:border-white/20 transition-colors">
+                    <img src="${item.image}" alt="${item.name}" class="w-20 h-24 object-cover rounded-sm opacity-100">
+                    <div class="flex-1 flex flex-col">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-display uppercase text-white leading-tight text-sm pr-4">${item.name}</h4>
+                            <button onclick="removeFromCart(${index})" class="text-gray-500 hover:text-white hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] text-sm transition-all"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="text-xs text-gray-400 font-sans mt-1">
+                            Talle: <span class="font-bold text-white">${item.size}</span> | Color: <span class="inline-block w-3 h-3 rounded-full border border-white/30 align-middle shadow-sm" style="background-color: ${item.color}"></span>
+                        </div>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="font-display font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">${formatPrice(item.price)}</span>
+                            <div class="flex items-center border border-white/20 rounded-sm bg-black">
+                                <button onclick="updateCartQty(${index}, -1)" class="px-2 py-0.5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors">-</button>
+                                <span class="px-2 text-xs font-bold w-6 text-center text-white">${item.qty}</span>
+                                <button onclick="updateCartQty(${index}, 1)" class="px-2 py-0.5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            totalEl.innerText = formatPrice(total);
+        }
+
+        // --- UI UTILS ---
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const closeMobileBtn = document.getElementById('close-mobile-btn');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('-translate-x-full');
+        }
+        mobileBtn.addEventListener('click', toggleMobileMenu);
+        closeMobileBtn.addEventListener('click', toggleMobileMenu);
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+
+        const searchOverlay = document.getElementById('search-overlay');
+        function toggleSearch() {
+            searchOverlay.classList.toggle('hidden');
+            searchOverlay.classList.toggle('flex');
+            if(!searchOverlay.classList.contains('hidden')) {
+                searchOverlay.querySelector('input').focus();
+            }
+        }
+        document.getElementById('search-btn').addEventListener('click', toggleSearch);
+        document.getElementById('close-search-btn').addEventListener('click', toggleSearch);
+
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-[0_4px_30px_rgba(0,0,0,0.8)]', 'bg-black/90');
+                header.classList.remove('glass-header');
+            } else {
+                header.classList.remove('shadow-[0_4px_30px_rgba(0,0,0,0.8)]', 'bg-black/90');
+                header.classList.add('glass-header');
+            }
+        });
+
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        }
+    </script>
+</body>
+</html>
